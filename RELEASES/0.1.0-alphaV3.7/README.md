@@ -189,3 +189,17 @@ The following verification screenshots were generated from isolated sandbox test
   <a href="https://github.com/anakrypt/Synapsenetai/tree/main/RELEASES"><img src="https://img.shields.io/badge/All_Releases-000000?style=for-the-badge&logo=github&logoColor=white" alt="All Releases" /></a>
   <a href="https://github.com/anakrypt/Synapsenetai/tree/main/RELEASES/0.1.0-alphaV4"><img src="https://img.shields.io/badge/Next_Release_%E2%86%92-000000?style=for-the-badge&logo=rocket&logoColor=white" alt="Next Release" /></a>
 </p>
+
+<p align="center">
+  <a href="https://github.com/anakrypt"><img src="https://img.shields.io/badge/Built_by_Kepler-000000?style=for-the-badge&logo=github&logoColor=white" alt="Kepler" /></a>
+  <a href="https://github.com/anakrypt/Synapsenetai"><img src="https://img.shields.io/badge/Source_Code-000000?style=for-the-badge&logo=github&logoColor=white" alt="Source Code" /></a>
+</p>
+
+<p align="center">
+  If you find this project worth watching -- even if you can't contribute code -- you can help keep it going.<br>
+  Donations go directly toward VPS hosting for seed nodes, build infrastructure, and development time.
+</p>
+
+<p align="center">
+  <a href="https://www.blockchain.com/btc/address/bc1q5pkemq7q84ld4rf5kwtafp7jfl9dlf3pc4z9d4"><img src="https://img.shields.io/badge/bc1q5pkemq7q84ld4rf5kwtafp7jfl9dlf3pc4z9d4-000000?style=for-the-badge&logo=bitcoin&logoColor=white" alt="BTC" /></a>
+</p>

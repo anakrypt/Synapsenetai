@@ -31,6 +31,7 @@
   <a href="RELEASES/0.1.0-alphaV3"><img src="https://img.shields.io/badge/0.1.0--alphaV3-000000?style=for-the-badge&logo=torproject&logoColor=white" alt="0.1.0-alphaV3" /></a>
   <a href="RELEASES/0.1.0-alphaV3.5"><img src="https://img.shields.io/badge/0.1.0--alphaV3.5-000000?style=for-the-badge&logo=torproject&logoColor=white" alt="0.1.0-alphaV3.5" /></a>
   <a href="RELEASES/0.1.0-alphaV3.6"><img src="https://img.shields.io/badge/0.1.0--alphaV3.6-000000?style=for-the-badge&logo=rocket&logoColor=white" alt="0.1.0-alphaV3.6" /></a>
+  <a href="RELEASES/0.1.0-alphaV3.7"><img src="https://img.shields.io/badge/0.1.0--alphaV3.7-000000?style=for-the-badge&logo=rocket&logoColor=white" alt="0.1.0-alphaV3.7" /></a>
   <a href="RELEASES/0.1.0-alphaV4"><img src="https://img.shields.io/badge/0.1.0--alphaV4-000000?style=for-the-badge&logo=rocket&logoColor=white" alt="0.1.0-alphaV4" /></a>
 </p>
 
