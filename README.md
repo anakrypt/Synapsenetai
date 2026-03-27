@@ -215,6 +215,13 @@ See [CONTRIBUTING.md](CONTRIBUTING.md). Code contributions can be submitted as P
 
 ## Changelog
 
+### 0.1.0-alphaV3.7 (March 27, 2026)
+
+- Security hardening release covering 18 audited fixes across cryptography, consensus, RPC, networking, sandboxing, updates, and model download paths
+- Replaced custom XOR-based session crypto with AES-256-GCM and removed the legacy XOR wallet loading path
+- Enforced signed consensus votes, hardened RPC handling, added replay protection, SOCKS5 auth support, DNS timeout handling, and PBKDF2 increase to 100,000 iterations
+- Added sandbox verification reports under `RELEASES/0.1.0-alphaV3.7/verification/`
+
 ### 0.1.0-alphaV3.6 (March 26, 2026)
 
 - Modularized `main.cpp` from 4,809 lines to 117 lines (separation of concerns)
