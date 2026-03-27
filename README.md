@@ -215,6 +215,12 @@ See [CONTRIBUTING.md](CONTRIBUTING.md). Code contributions can be submitted as P
 
 ## Changelog
 
+### 0.1.0-alphaV4 (In Development)
+
+- Major migration branch focused on eliminating the Go terminal client and rewriting the stack around a C++ node plus desktop app workflow
+- Planned direction: Tauri desktop application, Svelte frontend, direct C++ integration, and removal of the legacy Go-based SynapseIDE path
+- Active development release, not finalized yet
+
 ### 0.1.0-alphaV3.7 (March 27, 2026)
 
 - Security hardening release covering 18 audited fixes across cryptography, consensus, RPC, networking, sandboxing, updates, and model download paths
