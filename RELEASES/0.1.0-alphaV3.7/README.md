@@ -1,4 +1,26 @@
-# SynapseNet alphaV3.7 — Security Hardening Release
+<h1 align="center">SynapseNet 0.1.0-alphaV3.7</h1>
+
+<p align="center"><strong>Security Hardening Release</strong></p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Version-0.1.0--alphaV3.7-000000?style=for-the-badge&labelColor=000000" alt="Version" />
+  <img src="https://img.shields.io/badge/Security-18_Fixes-000000?style=for-the-badge&labelColor=000000" alt="Security" />
+  <img src="https://img.shields.io/badge/Verification-Sandbox_Tested-000000?style=for-the-badge&labelColor=000000" alt="Verification" />
+</p>
+
+<p align="center">
+  <a href="https://github.com/anakrypt"><img src="https://img.shields.io/badge/Kepler-000000?style=for-the-badge&logo=github&logoColor=white" alt="Profile" /></a>
+  <a href="https://github.com/anakrypt/Synapsenetai"><img src="https://img.shields.io/badge/Source_Code-000000?style=for-the-badge&logo=github&logoColor=white" alt="Source" /></a>
+  <a href="https://github.com/anakrypt/SynapseNet"><img src="https://img.shields.io/badge/Documentation-000000?style=for-the-badge&logo=gitbook&logoColor=white" alt="Docs" /></a>
+  <a href="https://github.com/anakrypt/SynapseNet/blob/main/SynapseNet_Whitepaper.pdf"><img src="https://img.shields.io/badge/Whitepaper-000000?style=for-the-badge&logo=adobeacrobatreader&logoColor=white" alt="Whitepaper" /></a>
+  <a href="https://github.com/anakrypt/Synapsenetai/tree/main/RELEASES/0.1.0-alphaV3.6"><img src="https://img.shields.io/badge/%E2%86%90_0.1.0--alphaV3.6-000000?style=for-the-badge&logo=rocket&logoColor=white" alt="V3.6" /></a>
+  <a href="https://github.com/anakrypt/Synapsenetai/tree/main/RELEASES/0.1.0-alphaV4"><img src="https://img.shields.io/badge/0.1.0--alphaV4_%E2%86%92-000000?style=for-the-badge&logo=rocket&logoColor=white" alt="V4" /></a>
+  <a href="https://github.com/anakrypt/Synapsenetai/tree/main/RELEASES"><img src="https://img.shields.io/badge/All_Releases-000000?style=for-the-badge&logo=github&logoColor=white" alt="All Releases" /></a>
+</p>
+
+---
+
+> alphaV3.7 is a dedicated security hardening release that addresses 18 vulnerabilities identified during a comprehensive security audit. The release has also been validated in an isolated sandbox, with verification screenshots included below.
 
 ## Summary
 
@@ -141,3 +163,29 @@ Mixed additional entropy into the validator selection seed. Instead of using onl
 | `src/crypto/crypto.cpp` | 12 |
 | `src/core/update_installer.cpp` | 16 |
 | `src/model/model_download.cpp` | 17 |
+
+---
+
+## Verification Reports
+
+The following verification screenshots were generated from isolated sandbox test runs and source-level validation notes for alphaV3.7.
+
+### Verification Report 1
+
+![alphaV3.7 verification report 1](./verification/report-1.png)
+
+### Verification Report 2
+
+![alphaV3.7 verification report 2](./verification/report-2.png)
+
+### Verification Report 3
+
+![alphaV3.7 verification report 3](./verification/report-3.png)
+
+---
+
+<p align="center">
+  <a href="https://github.com/anakrypt/Synapsenetai/tree/main/RELEASES/0.1.0-alphaV3.6"><img src="https://img.shields.io/badge/%E2%86%90_Previous_Release-000000?style=for-the-badge&logo=rocket&logoColor=white" alt="Previous Release" /></a>
+  <a href="https://github.com/anakrypt/Synapsenetai/tree/main/RELEASES"><img src="https://img.shields.io/badge/All_Releases-000000?style=for-the-badge&logo=github&logoColor=white" alt="All Releases" /></a>
+  <a href="https://github.com/anakrypt/Synapsenetai/tree/main/RELEASES/0.1.0-alphaV4"><img src="https://img.shields.io/badge/Next_Release_%E2%86%92-000000?style=for-the-badge&logo=rocket&logoColor=white" alt="Next Release" /></a>
+</p>
