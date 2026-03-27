@@ -40,6 +40,8 @@
 > **Alpha Release**
 >
 > This is the alpha version of SynapseNet. The codebase has been developed locally since 2023, outside of GitHub — this is its first public release. The code is open for anyone to explore: look at the architecture, run it locally, see how mining works on a local devnet, trace the code structure and functions. This is not production-ready. Expect bugs. The long-term goal is to move everything from the terminal into a proper graphical interface so it's accessible to newcomers, not just people comfortable with CLI tools. Right now you can build it, poke around, break things, and report what you find. Beta is still a ways out — there's a lot of work left to get the UX where it needs to be.
+>
+> The website and VPS infrastructure are currently in development. Once the alpha release is finished, the public rollout will follow soon. Until then, I am continuing to stabilize the alpha, fix bugs, ship hardening updates, and add new improvements.
 
 ---
 
