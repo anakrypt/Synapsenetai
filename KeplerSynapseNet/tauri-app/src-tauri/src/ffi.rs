@@ -1,4 +1,4 @@
-use libloading::{Library, Symbol};
+use libloading::Library;
 use once_cell::sync::OnceCell;
 use std::ffi::{CStr, CString};
 use std::os::raw::c_char;
