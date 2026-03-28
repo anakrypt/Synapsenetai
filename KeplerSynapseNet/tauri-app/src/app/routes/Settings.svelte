@@ -11,7 +11,11 @@
   let cpuThreads = 2;
   let ramLimitMb = 4096;
   let diskLimitMb = 50000;
-  let systemInfo: SystemInfo = { cpu_cores: 4, ram_total_mb: 8192 };
+  let systemInfo: SystemInfo = { cpu_cores: 4, ram_total_mb: 8192, gpu_devices: [] };
+
+  let gpuEnabled = false;
+  let gpuDevice = "";
+  let gpuLayers = 32;
 
   let naanEnabled = false;
   let naanTopics = "";
@@ -43,6 +47,9 @@
       launchAtLogin = parsed.launch_at_login || false;
       minimizeToTray = parsed.minimize_to_tray || false;
       autoUpdate = parsed.auto_update !== false;
+      gpuEnabled = parsed.gpu_enabled || false;
+      gpuDevice = parsed.gpu_device || "";
+      gpuLayers = parsed.gpu_layers || 32;
     } catch {}
   });
 
@@ -55,6 +62,9 @@
           cpu_threads: cpuThreads,
           ram_limit_mb: ramLimitMb,
           disk_limit_mb: diskLimitMb,
+          gpu_enabled: gpuEnabled,
+          gpu_device: gpuDevice,
+          gpu_layers: gpuLayers,
           naan_enabled: naanEnabled,
           naan_topics: naanTopics,
           naan_allowlist: siteAllowlist,
@@ -152,6 +162,35 @@
       <label>Disk Space Limit (MB)</label>
       <input type="number" bind:value={diskLimitMb} min="1000" />
     </div>
+  </div>
+
+  <div class="section-title">GPU Acceleration</div>
+  <div class="card">
+    <div class="checkbox-group">
+      <label>
+        <input type="checkbox" bind:checked={gpuEnabled} />
+        Enable GPU Offloading (llama.cpp CUDA / Metal / Vulkan)
+      </label>
+    </div>
+    {#if gpuEnabled}
+      {#if systemInfo.gpu_devices.length > 0}
+        <div class="form-group">
+          <label>GPU Device</label>
+          <select bind:value={gpuDevice} class="gpu-select">
+            {#each systemInfo.gpu_devices as dev}
+              <option value={dev.id}>{dev.name} ({dev.vram_mb} MB VRAM)</option>
+            {/each}
+          </select>
+        </div>
+      {:else}
+        <div class="gpu-note">No GPU detected on this system.</div>
+      {/if}
+      <div class="form-group">
+        <label>GPU Layers: {gpuLayers} / 64</label>
+        <input type="range" min="0" max="64" bind:value={gpuLayers} />
+      </div>
+      <div class="gpu-note">Number of model layers offloaded to GPU VRAM. Higher = faster, more VRAM.</div>
+    {/if}
   </div>
 
   <div class="section-title">NAAN Agent</div>
@@ -297,5 +336,22 @@
 
   .save-row {
     margin-top: 20px;
+  }
+
+  .gpu-select {
+    width: 100%;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    padding: 6px 10px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text-primary);
+    margin-top: 4px;
+  }
+
+  .gpu-note {
+    font-size: 11px;
+    color: var(--text-secondary);
+    margin-top: 6px;
   }
 </style>

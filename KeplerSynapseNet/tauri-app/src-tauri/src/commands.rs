@@ -123,6 +123,9 @@ pub struct SetupConfig {
     pub cpu_threads: u32,
     pub ram_limit_mb: u64,
     pub disk_limit_mb: u64,
+    pub gpu_enabled: bool,
+    pub gpu_device: Option<String>,
+    pub gpu_layers: u32,
     pub launch_at_startup: bool,
     pub mine_background: bool,
 }
@@ -158,6 +161,13 @@ pub fn save_setup_config(config: SetupConfig) -> Result<(), String> {
     content.push_str(&format!("cpu_threads = {}\n", config.cpu_threads));
     content.push_str(&format!("ram_limit_mb = {}\n", config.ram_limit_mb));
     content.push_str(&format!("disk_limit_mb = {}\n", config.disk_limit_mb));
+    content.push_str(&format!("gpu_enabled = {}\n", config.gpu_enabled));
+    if let Some(ref device) = config.gpu_device {
+        if !device.is_empty() {
+            content.push_str(&format!("gpu_device = \"{}\"\n", device));
+        }
+    }
+    content.push_str(&format!("gpu_layers = {}\n", config.gpu_layers));
     content.push_str("\n[startup]\n");
     content.push_str(&format!("launch_at_login = {}\n", config.launch_at_startup));
     content.push_str(&format!("mine_background = {}\n", config.mine_background));
@@ -169,9 +179,17 @@ pub fn save_setup_config(config: SetupConfig) -> Result<(), String> {
 }
 
 #[derive(Serialize)]
+pub struct GpuDevice {
+    pub id: String,
+    pub name: String,
+    pub vram_mb: u64,
+}
+
+#[derive(Serialize)]
 pub struct SystemInfo {
     pub cpu_cores: usize,
     pub ram_total_mb: u64,
+    pub gpu_devices: Vec<GpuDevice>,
 }
 
 #[tauri::command]
@@ -181,11 +199,167 @@ pub fn get_system_info() -> Result<SystemInfo, String> {
         .unwrap_or(4);
 
     let ram = sys_ram_mb();
+    let gpu_devices = detect_gpu_devices();
 
     Ok(SystemInfo {
         cpu_cores: cores,
         ram_total_mb: ram,
+        gpu_devices,
     })
+}
+
+fn detect_gpu_devices() -> Vec<GpuDevice> {
+    let mut devices = Vec::new();
+
+    #[cfg(target_os = "linux")]
+    {
+        if let Ok(entries) = std::fs::read_dir("/sys/class/drm") {
+            for entry in entries.flatten() {
+                let name = entry.file_name().to_string_lossy().to_string();
+                if !name.starts_with("card") || name.contains('-') {
+                    continue;
+                }
+                let device_path = entry.path().join("device");
+                let vendor_path = device_path.join("vendor");
+                let gpu_name = if vendor_path.exists() {
+                    let vendor = std::fs::read_to_string(&vendor_path)
+                        .unwrap_or_default()
+                        .trim()
+                        .to_string();
+                    match vendor.as_str() {
+                        "0x10de" => format!("NVIDIA GPU ({})", name),
+                        "0x1002" => format!("AMD GPU ({})", name),
+                        "0x8086" => format!("Intel GPU ({})", name),
+                        _ => format!("GPU ({})", name),
+                    }
+                } else {
+                    format!("GPU ({})", name)
+                };
+
+                let vram = detect_gpu_vram(&device_path);
+
+                devices.push(GpuDevice {
+                    id: name,
+                    name: gpu_name,
+                    vram_mb: vram,
+                });
+            }
+        }
+
+        if devices.is_empty() {
+            if let Ok(output) = std::process::Command::new("nvidia-smi")
+                .args(["--query-gpu=index,name,memory.total", "--format=csv,noheader,nounits"])
+                .output()
+            {
+                if output.status.success() {
+                    let stdout = String::from_utf8_lossy(&output.stdout);
+                    for line in stdout.lines() {
+                        let parts: Vec<&str> = line.split(',').map(|s| s.trim()).collect();
+                        if parts.len() >= 3 {
+                            let vram = parts[2].parse::<u64>().unwrap_or(0);
+                            devices.push(GpuDevice {
+                                id: format!("nvidia:{}", parts[0]),
+                                name: parts[1].to_string(),
+                                vram_mb: vram,
+                            });
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    #[cfg(target_os = "macos")]
+    {
+        if let Ok(output) = std::process::Command::new("system_profiler")
+            .args(["SPDisplaysDataType", "-json"])
+            .output()
+        {
+            if output.status.success() {
+                let stdout = String::from_utf8_lossy(&output.stdout);
+                if let Ok(parsed) = serde_json::from_str::<serde_json::Value>(&stdout) {
+                    if let Some(displays) = parsed["SPDisplaysDataType"].as_array() {
+                        for (i, gpu) in displays.iter().enumerate() {
+                            let name = gpu["sppci_model"]
+                                .as_str()
+                                .unwrap_or("Unknown GPU")
+                                .to_string();
+                            let vram_str = gpu["spdisplays_vram"]
+                                .as_str()
+                                .unwrap_or("0");
+                            let vram = vram_str
+                                .split_whitespace()
+                                .next()
+                                .and_then(|v| v.parse::<u64>().ok())
+                                .unwrap_or(0)
+                                * 1024;
+                            devices.push(GpuDevice {
+                                id: format!("gpu:{}", i),
+                                name,
+                                vram_mb: vram,
+                            });
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    #[cfg(target_os = "windows")]
+    {
+        if let Ok(output) = std::process::Command::new("wmic")
+            .args(["path", "win32_VideoController", "get", "Name,AdapterRAM", "/format:csv"])
+            .output()
+        {
+            if output.status.success() {
+                let stdout = String::from_utf8_lossy(&output.stdout);
+                for (i, line) in stdout.lines().skip(2).enumerate() {
+                    let parts: Vec<&str> = line.split(',').collect();
+                    if parts.len() >= 3 {
+                        let vram_bytes = parts[1].trim().parse::<u64>().unwrap_or(0);
+                        devices.push(GpuDevice {
+                            id: format!("gpu:{}", i),
+                            name: parts[2].trim().to_string(),
+                            vram_mb: vram_bytes / (1024 * 1024),
+                        });
+                    }
+                }
+            }
+        }
+    }
+
+    devices
+}
+
+#[cfg(target_os = "linux")]
+fn detect_gpu_vram(device_path: &std::path::Path) -> u64 {
+    let mem_path = device_path.join("mem_info_vram_total");
+    if mem_path.exists() {
+        if let Ok(val) = std::fs::read_to_string(&mem_path) {
+            return val.trim().parse::<u64>().unwrap_or(0) / (1024 * 1024);
+        }
+    }
+    let resource_path = device_path.join("resource");
+    if resource_path.exists() {
+        if let Ok(content) = std::fs::read_to_string(&resource_path) {
+            if let Some(line) = content.lines().next() {
+                let parts: Vec<&str> = line.split_whitespace().collect();
+                if parts.len() >= 2 {
+                    let start = u64::from_str_radix(parts[0].trim_start_matches("0x"), 16).unwrap_or(0);
+                    let end = u64::from_str_radix(parts[1].trim_start_matches("0x"), 16).unwrap_or(0);
+                    if end > start {
+                        return (end - start) / (1024 * 1024);
+                    }
+                }
+            }
+        }
+    }
+    0
+}
+
+#[cfg(not(target_os = "linux"))]
+fn detect_gpu_vram(_device_path: &std::path::Path) -> u64 {
+    0
 }
 
 fn sys_ram_mb() -> u64 {

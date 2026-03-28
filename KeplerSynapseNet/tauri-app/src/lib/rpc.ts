@@ -99,13 +99,23 @@ export interface SetupConfig {
   cpu_threads: number;
   ram_limit_mb: number;
   disk_limit_mb: number;
+  gpu_enabled: boolean;
+  gpu_device: string | null;
+  gpu_layers: number;
   launch_at_startup: boolean;
   mine_background: boolean;
+}
+
+export interface GpuDevice {
+  id: string;
+  name: string;
+  vram_mb: number;
 }
 
 export interface SystemInfo {
   cpu_cores: number;
   ram_total_mb: number;
+  gpu_devices: GpuDevice[];
 }
 
 export interface NodeStatus {

@@ -31,10 +31,13 @@
   let downloadProgress = 0;
   let downloading = false;
 
-  let systemInfo: SystemInfo = { cpu_cores: 4, ram_total_mb: 8192 };
+  let systemInfo: SystemInfo = { cpu_cores: 4, ram_total_mb: 8192, gpu_devices: [] };
   let cpuThreads = 2;
   let ramLimitMb = 4096;
   let diskLimitMb = 50000;
+  let gpuEnabled = false;
+  let gpuDevice = "";
+  let gpuLayers = 32;
   let launchAtStartup = false;
   let mineBackground = false;
 
@@ -161,6 +164,9 @@
       cpu_threads: cpuThreads,
       ram_limit_mb: ramLimitMb,
       disk_limit_mb: diskLimitMb,
+      gpu_enabled: gpuEnabled,
+      gpu_device: gpuDevice || null,
+      gpu_layers: gpuLayers,
       launch_at_startup: launchAtStartup,
       mine_background: mineBackground,
     };
@@ -331,6 +337,33 @@
           <div class="form-group">
             <label>Disk Space Limit (MB)</label>
             <input type="number" bind:value={diskLimitMb} min="1000" />
+          </div>
+          <div class="gpu-section">
+            <div class="checkbox-group">
+              <label>
+                <input type="checkbox" bind:checked={gpuEnabled} />
+                Enable GPU Acceleration
+              </label>
+            </div>
+            {#if gpuEnabled}
+              {#if systemInfo.gpu_devices.length > 0}
+                <div class="form-group">
+                  <label>GPU Device</label>
+                  <select bind:value={gpuDevice}>
+                    {#each systemInfo.gpu_devices as dev}
+                      <option value={dev.id}>{dev.name} ({dev.vram_mb} MB VRAM)</option>
+                    {/each}
+                  </select>
+                </div>
+              {:else}
+                <div class="gpu-not-found">No GPU detected. llama.cpp will use CPU-only inference.</div>
+              {/if}
+              <div class="form-group">
+                <label>GPU Layers (offload to VRAM): {gpuLayers}</label>
+                <input type="range" min="0" max="64" bind:value={gpuLayers} />
+              </div>
+              <div class="gpu-hint">Higher = more VRAM used, faster inference. Set 0 for CPU-only.</div>
+            {/if}
           </div>
           <div class="checkbox-group">
             <label>
@@ -645,5 +678,33 @@
     font-size: 12px;
     color: var(--status-red);
     margin-top: 8px;
+  }
+
+  .gpu-section {
+    border: 1px solid var(--border);
+    padding: 12px;
+    margin: 8px 0;
+  }
+
+  .gpu-not-found {
+    font-size: 11px;
+    color: var(--status-yellow);
+    padding: 8px 0;
+  }
+
+  .gpu-hint {
+    font-size: 11px;
+    color: var(--text-secondary);
+    margin-top: 4px;
+  }
+
+  select {
+    width: 100%;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    padding: 6px 10px;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--text-primary);
   }
 </style>
