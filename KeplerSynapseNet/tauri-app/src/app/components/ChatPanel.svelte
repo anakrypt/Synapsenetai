@@ -247,6 +247,7 @@
     height: 100%;
     border: 1px solid var(--border);
     border-top: none;
+    background: var(--surface);
   }
 
   .chat-header {
@@ -260,10 +261,10 @@
   }
 
   .chat-title {
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.6px;
     color: var(--text-secondary);
   }
 
@@ -271,33 +272,40 @@
     font-size: 10px;
     padding: 2px 8px;
     border: 1px solid var(--border);
+    border-radius: 3px;
     color: var(--text-secondary);
+    background: none;
+    transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
   }
 
   .web4-toggle.active {
     border-color: var(--accent);
-    color: var(--text-primary);
+    color: var(--accent);
+    background: var(--accent-muted);
   }
 
   .chat-messages {
     flex: 1;
     overflow-y: auto;
-    padding: 10px;
+    padding: 12px;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 10px;
+    background: var(--bg);
   }
 
   .chat-msg {
     font-size: 12px;
-    line-height: 1.6;
+    line-height: 1.65;
     color: var(--text-primary);
   }
 
   .chat-msg.user {
     color: var(--text-secondary);
-    padding-left: 8px;
-    border-left: 2px solid var(--border);
+    padding: 8px 10px;
+    border-left: 2px solid var(--accent);
+    background: var(--accent-muted);
+    border-radius: 0 4px 4px 0;
   }
 
   .chat-msg.assistant {
@@ -309,9 +317,16 @@
     align-items: center;
     gap: 6px;
     border: none;
+    border-radius: 0;
     padding: 4px 0;
     font-size: 11px;
     color: var(--text-secondary);
+    background: none;
+    transition: color 0.15s ease;
+  }
+
+  .tool-header:hover {
+    color: var(--text-primary);
     background: none;
   }
 
@@ -326,9 +341,10 @@
 
   .tool-output {
     font-size: 11px;
-    padding: 6px 10px;
-    background: var(--bg);
+    padding: 8px 10px;
+    background: var(--surface-alt);
     border: 1px solid var(--border);
+    border-radius: 4px;
     overflow-x: auto;
     margin: 4px 0;
     white-space: pre-wrap;
@@ -338,6 +354,8 @@
   .code-block {
     margin: 6px 0;
     border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
   }
 
   .code-header {
@@ -355,11 +373,19 @@
     font-size: 10px;
     padding: 1px 6px;
     border: 1px solid var(--border);
+    border-radius: 3px;
     color: var(--text-secondary);
+    background: none;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+
+  .copy-btn:hover {
+    color: var(--text-primary);
+    border-color: var(--text-faint);
   }
 
   .code-content {
-    padding: 8px 10px;
+    padding: 10px 12px;
     font-size: 12px;
     overflow-x: auto;
     background: var(--bg);
@@ -384,7 +410,7 @@
 
   .blink-cursor {
     animation: blink 1s step-end infinite;
-    color: var(--text-primary);
+    color: var(--accent);
   }
 
   .chat-input-area {
@@ -400,10 +426,17 @@
     flex: 1;
     resize: none;
     border: 1px solid var(--border);
+    border-radius: 4px;
     background: var(--bg);
     color: var(--text-primary);
     padding: 6px 8px;
     font-size: 12px;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .chat-input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px var(--accent-muted);
   }
 
   .send-btn {

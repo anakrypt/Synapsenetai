@@ -175,7 +175,7 @@
     flex: 1;
     color: var(--text-primary);
     border-color: var(--border);
-    background: var(--surface);
+    background: var(--bg);
   }
 
   .result-content {
@@ -189,12 +189,20 @@
     font-size: 12px;
     color: var(--status-red);
     margin-bottom: 8px;
+    padding: 6px 10px;
+    border-radius: 4px;
+    background: var(--status-red-muted);
+    border: 1px solid var(--status-red);
   }
 
   .success-msg {
     font-size: 12px;
     color: var(--status-green);
     margin-bottom: 8px;
+    padding: 6px 10px;
+    border-radius: 4px;
+    background: var(--status-green-muted);
+    border: 1px solid var(--status-green);
   }
 
   .empty-text {

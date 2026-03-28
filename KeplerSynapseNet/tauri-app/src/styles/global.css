@@ -31,11 +31,12 @@ button {
   border: 1px solid;
   background: none;
   padding: 6px 14px;
-  transition: none;
+  border-radius: 4px;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
 }
 
 button:disabled {
-  opacity: 0.3;
+  opacity: 0.35;
   cursor: not-allowed;
 }
 
@@ -46,9 +47,11 @@ input, textarea, select {
   background: none;
   padding: 6px 10px;
   outline: none;
+  border-radius: 4px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
-input:focus, textarea:focus {
+input:focus, textarea:focus, select:focus {
   outline: none;
 }
 
@@ -63,7 +66,7 @@ input:focus, textarea:focus {
 
 ::-webkit-scrollbar-thumb {
   background: var(--border);
-  border-radius: 0;
+  border-radius: 3px;
 }
 
 table {
@@ -74,7 +77,7 @@ table {
 
 th, td {
   text-align: left;
-  padding: 6px 10px;
+  padding: 7px 10px;
   border-bottom: 1px solid var(--border);
 }
 
@@ -82,8 +85,8 @@ th {
   font-weight: 600;
   color: var(--text-secondary);
   text-transform: uppercase;
-  font-size: 11px;
-  letter-spacing: 0.5px;
+  font-size: 10px;
+  letter-spacing: 0.6px;
 }
 
 .status-dot {
@@ -92,10 +95,12 @@ th {
   height: 6px;
   border-radius: 50%;
   margin-right: 6px;
+  flex-shrink: 0;
 }
 
 .status-dot.green {
   background: var(--status-green);
+  box-shadow: 0 0 5px var(--status-green);
 }
 
 .status-dot.yellow {
@@ -108,15 +113,18 @@ th {
 
 .card {
   border: 1px solid var(--border);
+  border-radius: 6px;
   padding: 16px;
   margin-bottom: 12px;
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
 }
 
 .card-header {
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.6px;
   color: var(--text-secondary);
   margin-bottom: 8px;
 }
@@ -128,41 +136,54 @@ th {
 }
 
 .form-group {
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
 
 .form-group label {
   display: block;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.6px;
   color: var(--text-secondary);
-  margin-bottom: 4px;
+  margin-bottom: 5px;
 }
 
 .form-group input,
-.form-group textarea {
+.form-group textarea,
+.form-group select {
   width: 100%;
   color: var(--text-primary);
   border-color: var(--border);
-  background: var(--surface);
+  background: var(--bg);
 }
 
 .btn-primary {
   background: var(--accent);
-  color: var(--bg);
+  color: #0a0a14;
   border-color: var(--accent);
   font-weight: 600;
+  border-radius: 4px;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
 }
 
 .btn-secondary {
-  color: var(--text-primary);
+  color: var(--text-secondary);
   border-color: var(--border);
+  border-radius: 4px;
+  background: none;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
 }
 
-.btn-secondary:hover {
-  border-color: var(--text-secondary);
+.btn-secondary:hover:not(:disabled) {
+  color: var(--text-primary);
+  border-color: var(--text-faint);
+  background: var(--surface-alt);
 }
 
 .grid-2 {
@@ -181,16 +202,17 @@ th {
   padding: 20px;
   height: 100%;
   overflow-y: auto;
+  background: var(--bg);
 }
 
 .section-title {
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.6px;
   color: var(--text-secondary);
   margin-bottom: 12px;
-  margin-top: 20px;
+  margin-top: 22px;
 }
 
 .section-title:first-child {
@@ -199,10 +221,12 @@ th {
 
 .tag {
   display: inline-block;
-  padding: 2px 8px;
-  font-size: 11px;
+  padding: 2px 7px;
+  font-size: 10px;
+  border-radius: 3px;
   border: 1px solid var(--border);
   color: var(--text-secondary);
+  background: var(--surface-alt);
 }
 
 .mono {

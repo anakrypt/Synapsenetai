@@ -134,7 +134,7 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-top: 6px;
+    margin-top: 8px;
   }
 
   .address-text {
@@ -142,18 +142,20 @@
     color: var(--text-primary);
     word-break: break-all;
     flex: 1;
+    line-height: 1.5;
   }
 
   .qr-placeholder {
     display: flex;
     justify-content: center;
-    padding: 16px;
+    padding: 20px;
   }
 
   .seed-display {
     padding: 14px;
     border: 1px solid var(--status-yellow);
-    background: var(--bg);
+    border-radius: 4px;
+    background: var(--status-yellow-muted);
     font-size: 13px;
     line-height: 1.8;
     word-spacing: 4px;

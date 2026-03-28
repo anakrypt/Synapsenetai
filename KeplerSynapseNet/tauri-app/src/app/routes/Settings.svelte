@@ -271,12 +271,21 @@
     font-size: 11px;
     padding: 4px 12px;
     border: 1px solid var(--border);
+    border-radius: 4px;
     color: var(--text-secondary);
+    background: none;
+    transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+  }
+
+  .filter-btn:hover {
+    color: var(--text-primary);
+    background: var(--surface-alt);
   }
 
   .filter-btn.active {
-    color: var(--text-primary);
+    color: var(--accent);
     border-color: var(--accent);
+    background: var(--accent-muted);
   }
 
   .info-row {
@@ -301,6 +310,7 @@
     gap: 8px;
     align-items: center;
     margin-top: 8px;
+    flex-wrap: wrap;
   }
 
   .checkbox-group {
@@ -320,6 +330,7 @@
     width: 14px;
     height: 14px;
     padding: 0;
+    accent-color: var(--accent);
   }
 
   input[type="range"] {
@@ -327,6 +338,7 @@
     padding: 0;
     border: none;
     background: none;
+    accent-color: var(--accent);
   }
 
   .update-status {
@@ -336,6 +348,7 @@
 
   .save-row {
     margin-top: 20px;
+    padding-bottom: 20px;
   }
 
   .gpu-select {
@@ -344,7 +357,8 @@
     font-size: 12px;
     padding: 6px 10px;
     border: 1px solid var(--border);
-    background: var(--surface);
+    border-radius: 4px;
+    background: var(--bg);
     color: var(--text-primary);
     margin-top: 4px;
   }
@@ -353,5 +367,6 @@
     font-size: 11px;
     color: var(--text-secondary);
     margin-top: 6px;
+    line-height: 1.5;
   }
 </style>

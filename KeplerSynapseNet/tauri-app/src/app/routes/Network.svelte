@@ -140,7 +140,7 @@
   .tor-info {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 8px;
     margin-top: 8px;
   }
 
@@ -162,7 +162,10 @@
 
   .peer-map-container {
     border: 1px solid var(--border);
+    border-radius: 6px;
     padding: 8px;
+    background: var(--surface);
+    box-shadow: var(--shadow-sm);
   }
 
   .peer-map {

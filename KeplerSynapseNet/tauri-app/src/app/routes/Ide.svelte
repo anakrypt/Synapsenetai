@@ -46,6 +46,7 @@
     display: flex;
     flex-direction: column;
     height: 100%;
+    background: var(--bg);
   }
 
   .ide-editor {
@@ -68,6 +69,7 @@
   .poe-btn {
     font-size: 11px;
     padding: 3px 10px;
+    border-radius: 4px;
   }
 
   .submit-result {

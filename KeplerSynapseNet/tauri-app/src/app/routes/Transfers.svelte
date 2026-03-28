@@ -138,24 +138,41 @@
     font-size: 11px;
     padding: 4px 12px;
     border: 1px solid var(--border);
+    border-radius: 4px;
     color: var(--text-secondary);
+    background: none;
+    transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+  }
+
+  .filter-btn:hover {
+    color: var(--text-primary);
+    background: var(--surface-alt);
   }
 
   .filter-btn.active {
-    color: var(--text-primary);
+    color: var(--accent);
     border-color: var(--accent);
+    background: var(--accent-muted);
   }
 
   .error-msg {
     font-size: 12px;
     color: var(--status-red);
     margin-bottom: 8px;
+    padding: 6px 10px;
+    border-radius: 4px;
+    background: var(--status-red-muted);
+    border: 1px solid var(--status-red);
   }
 
   .success-msg {
     font-size: 12px;
     color: var(--status-green);
     margin-bottom: 8px;
+    padding: 6px 10px;
+    border-radius: 4px;
+    background: var(--status-green-muted);
+    border: 1px solid var(--status-green);
   }
 
   .address-display {
@@ -164,6 +181,7 @@
     color: var(--text-primary);
     display: block;
     margin-top: 6px;
+    line-height: 1.6;
   }
 
   .empty-row {

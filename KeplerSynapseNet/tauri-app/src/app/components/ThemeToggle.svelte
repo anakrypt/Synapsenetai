@@ -21,27 +21,33 @@
     display: flex;
     align-items: center;
     gap: 6px;
-    border: none;
-    padding: 4px 10px;
-    font-size: 11px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 3px 10px;
+    font-size: 10px;
     font-weight: 600;
     letter-spacing: 0.5px;
     color: var(--text-secondary);
+    background: none;
+    transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
   }
 
   .theme-toggle:hover {
     color: var(--text-primary);
-    border: none;
+    border-color: var(--text-faint);
+    background: var(--surface-alt);
   }
 
   .toggle-dot {
-    width: 8px;
-    height: 8px;
+    width: 7px;
+    height: 7px;
     border-radius: 50%;
+    flex-shrink: 0;
   }
 
   .toggle-dot.dark-active {
-    background: var(--text-primary);
+    background: var(--accent);
+    box-shadow: 0 0 4px var(--accent);
   }
 
   .toggle-dot.light-active {
@@ -49,6 +55,7 @@
   }
 
   .toggle-label {
-    font-size: 11px;
+    font-size: 10px;
+    letter-spacing: 0.5px;
   }
 </style>

@@ -458,16 +458,18 @@
     width: 560px;
     max-height: 90vh;
     border: 1px solid var(--border);
+    border-radius: 8px;
     background: var(--surface);
     display: flex;
     flex-direction: column;
+    box-shadow: var(--shadow-md);
   }
 
   .wizard-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 16px 20px;
+    padding: 18px 22px;
     border-bottom: 1px solid var(--border);
   }
 
@@ -484,15 +486,16 @@
 
   .wizard-progress {
     display: flex;
-    gap: 2px;
-    padding: 0 20px;
-    margin-top: 12px;
+    gap: 3px;
+    padding: 0 22px;
+    margin-top: 14px;
   }
 
   .progress-segment {
     flex: 1;
-    height: 2px;
+    height: 3px;
     background: var(--border);
+    border-radius: 2px;
   }
 
   .progress-segment.active {
@@ -502,20 +505,20 @@
   .wizard-body {
     flex: 1;
     overflow-y: auto;
-    padding: 20px;
+    padding: 22px;
   }
 
   .wizard-footer {
     display: flex;
     justify-content: space-between;
-    padding: 16px 20px;
+    padding: 16px 22px;
     border-top: 1px solid var(--border);
   }
 
   .step-content {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 14px;
   }
 
   .step-title {
@@ -529,6 +532,7 @@
     font-size: 12px;
     color: var(--text-secondary);
     margin: 0;
+    line-height: 1.6;
   }
 
   .step-actions {
@@ -538,8 +542,9 @@
 
   .mono-box {
     font-size: 11px;
-    padding: 10px;
+    padding: 10px 12px;
     border: 1px solid var(--border);
+    border-radius: 4px;
     background: var(--bg);
     word-break: break-all;
     color: var(--text-primary);
@@ -549,7 +554,8 @@
     font-size: 13px;
     padding: 14px;
     border: 1px solid var(--status-yellow);
-    background: var(--bg);
+    border-radius: 4px;
+    background: var(--status-yellow-muted);
     color: var(--text-primary);
     line-height: 1.8;
     word-spacing: 4px;
@@ -575,13 +581,21 @@
     align-items: flex-start;
     padding: 12px 14px;
     border: 1px solid var(--border);
+    border-radius: 6px;
     background: var(--bg);
     text-align: left;
     gap: 4px;
+    transition: border-color 0.15s ease, background 0.15s ease;
+  }
+
+  .option-btn:hover {
+    border-color: var(--text-faint);
+    background: var(--surface-alt);
   }
 
   .option-btn.selected {
     border-color: var(--accent);
+    background: var(--accent-muted);
   }
 
   .option-name {
@@ -599,11 +613,15 @@
     width: 100%;
     height: 4px;
     background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
   }
 
   .progress-bar {
     height: 100%;
     background: var(--accent);
+    border-radius: 2px;
+    transition: width 0.3s ease;
   }
 
   .progress-label {
@@ -630,6 +648,7 @@
     width: 14px;
     height: 14px;
     padding: 0;
+    accent-color: var(--accent);
   }
 
   input[type="range"] {
@@ -637,19 +656,20 @@
     padding: 0;
     border: none;
     background: none;
+    accent-color: var(--accent);
   }
 
   .checklist {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 0;
   }
 
   .check-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 8px 0;
+    padding: 10px 0;
     border-bottom: 1px solid var(--border);
   }
 
@@ -673,8 +693,10 @@
   }
 
   .error-box {
-    padding: 10px;
+    padding: 10px 12px;
     border: 1px solid var(--status-red);
+    border-radius: 4px;
+    background: var(--status-red-muted);
     font-size: 12px;
     color: var(--status-red);
     margin-top: 8px;
@@ -682,8 +704,10 @@
 
   .gpu-section {
     border: 1px solid var(--border);
-    padding: 12px;
+    border-radius: 6px;
+    padding: 14px;
     margin: 8px 0;
+    background: var(--surface-alt);
   }
 
   .gpu-not-found {
@@ -696,6 +720,7 @@
     font-size: 11px;
     color: var(--text-secondary);
     margin-top: 4px;
+    line-height: 1.5;
   }
 
   select {
@@ -704,6 +729,7 @@
     font-size: 13px;
     padding: 6px 10px;
     border: 1px solid var(--border);
+    border-radius: 4px;
     background: var(--bg);
     color: var(--text-primary);
   }

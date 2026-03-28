@@ -171,17 +171,34 @@
     padding: 6px 14px;
     font-size: 11px;
     border: none;
+    border-radius: 0;
     border-right: 1px solid var(--border);
     color: var(--text-secondary);
     background: none;
     white-space: nowrap;
+    position: relative;
+    transition: color 0.15s ease, background 0.15s ease;
+  }
+
+  .file-tab:hover {
+    color: var(--text-primary);
+    background: var(--surface-alt);
   }
 
   .file-tab.active {
     color: var(--text-primary);
     background: var(--bg);
-    border: none;
     border-right: 1px solid var(--border);
+  }
+
+  .file-tab.active::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--accent);
   }
 
   .editor-container {

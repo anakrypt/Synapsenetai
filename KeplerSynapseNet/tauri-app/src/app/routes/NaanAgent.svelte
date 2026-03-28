@@ -201,6 +201,7 @@
 <style>
   .status-label {
     font-weight: 700;
+    font-size: 18px;
   }
 
   .status-label.active {
@@ -223,13 +224,14 @@
     font-size: 12px;
     color: var(--text-primary);
     margin-top: 6px;
+    line-height: 1.6;
   }
 
   .draft-preview {
     font-size: 12px;
     color: var(--text-secondary);
     margin-top: 4px;
-    line-height: 1.5;
+    line-height: 1.55;
   }
 
   .source-toggle {
@@ -242,12 +244,21 @@
     font-size: 11px;
     padding: 4px 12px;
     border: 1px solid var(--border);
+    border-radius: 4px;
     color: var(--text-secondary);
+    background: none;
+    transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+  }
+
+  .filter-btn:hover {
+    color: var(--text-primary);
+    background: var(--surface-alt);
   }
 
   .filter-btn.active {
-    color: var(--text-primary);
+    color: var(--accent);
     border-color: var(--accent);
+    background: var(--accent-muted);
   }
 
   input[type="range"] {
@@ -255,6 +266,7 @@
     padding: 0;
     border: none;
     background: none;
+    accent-color: var(--accent);
   }
 
   .empty-text {

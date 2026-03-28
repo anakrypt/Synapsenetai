@@ -37,6 +37,7 @@
     color: var(--text-secondary);
     flex-shrink: 0;
     gap: 0;
+    letter-spacing: 0.2px;
   }
 
   .statusbar-item {
@@ -44,6 +45,7 @@
     align-items: center;
     padding: 0 10px;
     white-space: nowrap;
+    gap: 4px;
   }
 
   .statusbar-item:first-child {
@@ -52,7 +54,8 @@
 
   .statusbar-divider {
     width: 1px;
-    height: 12px;
+    height: 10px;
     background: var(--border);
+    flex-shrink: 0;
   }
 </style>

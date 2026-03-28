@@ -72,20 +72,25 @@
 <style>
   .dashboard-balance {
     text-align: center;
-    padding: 30px 0;
+    padding: 32px 0;
     border: 1px solid var(--border);
+    border-radius: 6px;
     margin-bottom: 12px;
+    background: var(--surface);
+    box-shadow: var(--shadow-sm);
   }
 
   .balance-value {
-    font-size: 36px;
+    font-size: 38px;
     font-weight: 700;
     color: var(--text-primary);
+    letter-spacing: -0.5px;
   }
 
   .balance-unit {
     font-size: 16px;
     font-weight: 400;
     color: var(--text-secondary);
+    margin-left: 4px;
   }
 </style>
