@@ -279,6 +279,22 @@ add_executable(test_pqc_ci_validation test_pqc_ci_validation.cpp)
 target_link_libraries(test_pqc_ci_validation synapsed_core)
 add_test(NAME PqcCiValidationTests COMMAND test_pqc_ci_validation)
 
+add_executable(test_ide_agent test_ide_agent.cpp)
+target_link_libraries(test_ide_agent synapsed_core)
+add_test(NAME IdeAgentTests COMMAND test_ide_agent)
+
+add_executable(test_ide_session test_ide_session.cpp)
+target_link_libraries(test_ide_session synapsed_core)
+add_test(NAME IdeSessionTests COMMAND test_ide_session)
+
+add_executable(test_ide_lsp test_ide_lsp.cpp)
+target_link_libraries(test_ide_lsp synapsed_core)
+add_test(NAME IdeLspTests COMMAND test_ide_lsp)
+
+add_executable(test_ffi_lifecycle test_ffi_lifecycle.cpp)
+target_link_libraries(test_ffi_lifecycle synapsed_lib)
+add_test(NAME FfiLifecycleTests COMMAND test_ffi_lifecycle)
+
 set(SYNAPSENET_TEST_TARGETS
     test_crypto
     test_crypto_secp
@@ -341,6 +357,10 @@ set(SYNAPSENET_TEST_TARGETS
     test_knowledge_antispam
     test_network_soak
     test_model_loader
+    test_ide_agent
+    test_ide_session
+    test_ide_lsp
+    test_ffi_lifecycle
 )
 
 foreach(TEST_TARGET IN LISTS SYNAPSENET_TEST_TARGETS)
