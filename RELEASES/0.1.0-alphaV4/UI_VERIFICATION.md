@@ -1,5 +1,12 @@
 # SynapseNet 0.1.0-alphaV4 — UI Verification Report
 
+> **Note:** All screenshots use simulated mock data for visual demonstration purposes only.
+> Values such as "1,847.00 NGT", "12 peers", "NAAN: mining", wallet addresses, seed phrases,
+> transaction history, peer lists, and agent submissions are hardcoded placeholders.
+> None of this data is real. In production the Tauri app receives all live data from
+> `synapsed_get_status()` and `synapsed_rpc_call()` via the libsynapsed FFI bridge,
+> polling every 2 seconds.
+
 ## Build
 
 ```
