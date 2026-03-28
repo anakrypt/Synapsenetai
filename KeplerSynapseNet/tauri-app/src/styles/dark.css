@@ -1,0 +1,50 @@
+:root[data-theme="dark"] {
+  --bg: #0a0a0a;
+  --surface: #111111;
+  --border: #1e1e1e;
+  --text-primary: #c9c9c9;
+  --text-secondary: #5a5a5a;
+  --accent: #ffffff;
+  --status-green: #2a9d2a;
+  --status-yellow: #9d8a2a;
+  --status-red: #9d2a2a;
+  --monaco-theme: vs-dark;
+  color-scheme: dark;
+}
+
+:root[data-theme="dark"] body {
+  background: var(--bg);
+  color: var(--text-primary);
+}
+
+:root[data-theme="dark"] button {
+  color: var(--text-primary);
+  border-color: var(--border);
+}
+
+:root[data-theme="dark"] button:hover:not(:disabled) {
+  border-color: var(--text-secondary);
+}
+
+:root[data-theme="dark"] input,
+:root[data-theme="dark"] textarea,
+:root[data-theme="dark"] select {
+  color: var(--text-primary);
+  border-color: var(--border);
+  background: var(--surface);
+}
+
+:root[data-theme="dark"] input:focus,
+:root[data-theme="dark"] textarea:focus {
+  border-color: var(--text-secondary);
+}
+
+:root[data-theme="dark"] .btn-primary {
+  background: var(--accent);
+  color: var(--bg);
+  border-color: var(--accent);
+}
+
+:root[data-theme="dark"] ::-webkit-scrollbar-thumb {
+  background: #1e1e1e;
+}
