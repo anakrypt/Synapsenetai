@@ -71,33 +71,33 @@ pub fn load() -> Result<(), String> {
         let library = Library::new(&lib_path)
             .map_err(|e| format!("failed to load libsynapsed from {}: {}", lib_path.display(), e))?;
 
-        let init: Symbol<SynapsedInit> = library
-            .get(b"synapsed_init\0")
+        let fn_init: SynapsedInit = *library
+            .get::<SynapsedInit>(b"synapsed_init\0")
             .map_err(|e| format!("symbol synapsed_init: {}", e))?;
-        let shutdown: Symbol<SynapsedShutdown> = library
-            .get(b"synapsed_shutdown\0")
+        let fn_shutdown: SynapsedShutdown = *library
+            .get::<SynapsedShutdown>(b"synapsed_shutdown\0")
             .map_err(|e| format!("symbol synapsed_shutdown: {}", e))?;
-        let rpc_call: Symbol<SynapsedRpcCall> = library
-            .get(b"synapsed_rpc_call\0")
+        let fn_rpc_call: SynapsedRpcCall = *library
+            .get::<SynapsedRpcCall>(b"synapsed_rpc_call\0")
             .map_err(|e| format!("symbol synapsed_rpc_call: {}", e))?;
-        let get_status: Symbol<SynapsedGetStatus> = library
-            .get(b"synapsed_get_status\0")
+        let fn_get_status: SynapsedGetStatus = *library
+            .get::<SynapsedGetStatus>(b"synapsed_get_status\0")
             .map_err(|e| format!("symbol synapsed_get_status: {}", e))?;
-        let free_string: Symbol<SynapsedFreeString> = library
-            .get(b"synapsed_free_string\0")
+        let fn_free_string: SynapsedFreeString = *library
+            .get::<SynapsedFreeString>(b"synapsed_free_string\0")
             .map_err(|e| format!("symbol synapsed_free_string: {}", e))?;
-        let subscribe: Symbol<SynapsedSubscribe> = library
-            .get(b"synapsed_subscribe\0")
+        let fn_subscribe: SynapsedSubscribe = *library
+            .get::<SynapsedSubscribe>(b"synapsed_subscribe\0")
             .map_err(|e| format!("symbol synapsed_subscribe: {}", e))?;
 
         SynapsedLib {
             _library: library,
-            init: *init,
-            shutdown: *shutdown,
-            rpc_call: *rpc_call,
-            get_status: *get_status,
-            free_string: *free_string,
-            subscribe: *subscribe,
+            init: fn_init,
+            shutdown: fn_shutdown,
+            rpc_call: fn_rpc_call,
+            get_status: fn_get_status,
+            free_string: fn_free_string,
+            subscribe: fn_subscribe,
         }
     };
 
