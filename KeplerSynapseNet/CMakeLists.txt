@@ -9,7 +9,7 @@ option(USE_LLAMA_CPP "Enable llama.cpp GGML backend" ON)
 option(USE_SECP256K1 "Use libsecp256k1 for signatures" ON)
 option(BUILD_PRIVACY "Build with privacy layer" OFF)
 option(BUILD_TESTS "Build tests" ON)
-option(BUILD_IDE "Build SynapseNet terminal IDE (crush fork)" ON)
+
 option(SYNAPSE_FETCH_LIBOQS "Fetch liboqs automatically when the system library is unavailable" ON)
 option(SYNAPSE_REQUIRE_REAL_PQC "Fail configure when liboqs-backed PQC support is unavailable" OFF)
 set(SYNAPSE_LIBOQS_GIT_TAG "0.12.0" CACHE STRING "liboqs git tag used when SYNAPSE_FETCH_LIBOQS is enabled")
@@ -398,6 +398,27 @@ set(PRIVACY_SOURCES
     src/privacy/traffic_analysis.cpp
 )
 
+set(IDE_SOURCES
+    src/ide/agent_coordinator.cpp
+    src/ide/agent_prompt.cpp
+    src/ide/tools/bash_tool.cpp
+    src/ide/tools/edit_tool.cpp
+    src/ide/tools/grep_tool.cpp
+    src/ide/tools/glob_tool.cpp
+    src/ide/tools/fetch_tool.cpp
+    src/ide/tools/write_tool.cpp
+    src/ide/tools/download_tool.cpp
+    src/ide/tools/web_search_tool.cpp
+    src/ide/session.cpp
+    src/ide/session_db.cpp
+    src/ide/config.cpp
+    src/ide/patch.cpp
+    src/ide/skills.cpp
+    src/ide/lsp_client.cpp
+    src/ide/mcp_server.cpp
+    src/ide/oauth.cpp
+)
+
 set(BASE_SOURCES
     ${CORE_SOURCES}
     ${TUI_SOURCES}
@@ -415,6 +436,7 @@ set(BASE_SOURCES
     ${WEB_SOURCES}
     ${QUANTUM_SOURCES}
     ${PRIVACY_SOURCES}
+    ${IDE_SOURCES}
 )
 
 if(BUILD_PRIVACY)
@@ -463,21 +485,26 @@ endif()
 add_executable(synapsed src/main.cpp)
 target_link_libraries(synapsed PRIVATE synapsed_core)
 
-# SynapseNet IDE (Go / crush fork)
-if(BUILD_IDE)
-    find_program(GO_EXECUTABLE go)
-    if(NOT GO_EXECUTABLE)
-        message(WARNING "Go not found; SynapseNet IDE will not be built (install Go and reconfigure)")
-    else()
-        set(SYNAPSE_IDE_BIN "${CMAKE_BINARY_DIR}/synapseide")
-        add_custom_target(synapseide_build ALL
-            BYPRODUCTS ${SYNAPSE_IDE_BIN}
-            COMMAND ${GO_EXECUTABLE} build -o ${SYNAPSE_IDE_BIN}
-            WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/crush-main
-        )
-        install(PROGRAMS ${SYNAPSE_IDE_BIN} DESTINATION bin)
-    endif()
+add_library(synapsed_lib SHARED src/ide/synapsed_engine.cpp src/ide/synapsed_ffi.cpp)
+target_link_libraries(synapsed_lib PRIVATE synapsed_core)
+target_compile_definitions(synapsed_lib PRIVATE SYNAPSED_BUILDING_LIB)
+set_target_properties(synapsed_lib PROPERTIES
+    OUTPUT_NAME "synapsed"
+    VERSION ${PROJECT_VERSION}
+    SOVERSION 0
+    C_VISIBILITY_PRESET hidden
+    CXX_VISIBILITY_PRESET hidden
+    VISIBILITY_INLINES_HIDDEN ON
+)
+if(APPLE)
+    set_target_properties(synapsed_lib PROPERTIES SUFFIX ".dylib")
+elseif(WIN32)
+    set_target_properties(synapsed_lib PROPERTIES SUFFIX ".dll")
 endif()
+install(TARGETS synapsed_lib DESTINATION lib)
+install(FILES include/synapsed_ffi.h DESTINATION include)
+
+
 
 # Tests
 if(BUILD_TESTS)

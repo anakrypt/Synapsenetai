@@ -49,7 +49,7 @@
 
 SynapseNet is a decentralized peer-to-peer network where nodes **mine intelligence instead of hashes**. Think Bitcoin, but for knowledge. Contributors feed useful data into an open network, every local AI can draw from it, and contributions are rewarded with **NGT** (Neural Gold Token) through a consensus mechanism called **Proof of Emergence**.
 
-This is the full source repository — the node daemon (`synapsed`), the terminal IDE (`synapseide`), CI pipelines, tests, and all architecture documents.
+This is the full source repository — the node daemon (`synapsed`), CI pipelines, tests, and all architecture documents.
 
 ---
 
@@ -94,16 +94,13 @@ KeplerSynapseNet/
     tui/                 ncurses terminal UI
   include/               Public headers
   tests/                 C++ tests (ctest, 267 passing)
-  crush-main/            SynapseIDE (Go terminal IDE)
+  ide/                   IDE engine (C++ — agent, session, LSP, MCP)
   third_party/
     llama.cpp            Local LLM inference engine
 ```
 
 **synapsed** — C++ node daemon  
-P2P networking, PoE v1 consensus, NGT ledger, local GGUF model inference, wallet management, optional Tor routing, ncurses TUI.
-
-**synapseide** — Go terminal IDE  
-Talks to synapsed over JSON-RPC. Isolated chat threads (`/tangent`), unified diff patch mode (`/patch`), code contributions with PoE submission, optional remote model rentals.
+P2P networking, PoE v1 consensus, NGT ledger, local GGUF model inference, wallet management, optional Tor routing, ncurses TUI, integrated IDE engine with agent coordinator, LSP client, and MCP server.
 
 **VS Code extension** — `ide/synapsenet-vscode/`  
 GitHub Quests workflow, chat panel with Web4 injection, remote model sessions.
@@ -219,9 +216,11 @@ See [CONTRIBUTING.md](CONTRIBUTING.md). Code contributions can be submitted as P
 
 ### 0.1.0-alphaV4 (In Development)
 
-- Major migration branch focused on eliminating the Go terminal client and rewriting the stack around a C++ node plus desktop app workflow
-- Planned direction: Tauri desktop application, Svelte frontend, direct C++ integration, and removal of the legacy Go-based SynapseIDE path
-- Active development release, not finalized yet
+- Eliminated all Go code from the project; every component formerly in crush-main is now native C++
+- Added IDE engine: agent coordinator, tool suite (bash, edit, grep, glob, fetch, write, download, web search), session management, config, patch, skills, LSP client, MCP server, and OAuth
+- Exposed synapsed as a shared library (libsynapsed) with a stable C ABI for Tauri FFI integration
+- Removed crush-main directory, go.mod, go.sum, and all Go build targets from CI
+- Planned next: Tauri desktop application with Svelte frontend consuming libsynapsed
 
 ### 0.1.0-alphaV3.7 (March 27, 2026)
 

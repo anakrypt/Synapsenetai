@@ -1,6 +1,6 @@
 ## Docker build (fallback, cross-host)
 
-This produces **Linux** binaries (`synapsed`, `synapseide`) inside a container.
+This produces the **Linux** binary (`synapsed`) inside a container.
 It is meant as a reproducible fallback for **Windows/macOS/Linux** users.
 
 ### Build (single-arch)
