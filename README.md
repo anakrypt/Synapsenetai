@@ -18,6 +18,10 @@
 
 ---
 
+<p align="center">
+  <img src="https://raw.githubusercontent.com/anakrypt/anakrypt/main/mining.png" alt="SynapseNet" />
+</p>
+
 <h3 align="center">Navigation</h3>
 
 <p align="center">
